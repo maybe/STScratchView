@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class STScratchView;
 @interface STViewController : UIViewController
+
+@property (nonatomic, strong) STScratchView *scratchView;
+@property (nonatomic, strong) UIImageView *alphaView;
 
 @end
