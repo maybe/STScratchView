@@ -29,9 +29,8 @@
 {
     [super drawRect:rect];
     
-    CGContextTranslateCTM(UIGraphicsGetCurrentContext(), 0, CGImageGetHeight(scratchImage));
-    CGContextScaleCTM(UIGraphicsGetCurrentContext(), 2.0, -2.0);
- 	CGContextDrawImage(UIGraphicsGetCurrentContext(), self.bounds, scratchImage);
+    UIImage *imageToDraw = [UIImage imageWithCGImage:scratchImage];
+    [imageToDraw drawInRect:CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height)];
 }
 
 // Method to change the view which will be scratched
@@ -60,7 +59,7 @@
     CGContextSetLineWidth(contextMask, _sizeBrush);
     CGContextSetLineCap(contextMask, kCGLineCapRound);
     
-    CGImageRef mask = CGImageMaskCreate(imageWidth / scale, imageHeight / scale, 8, 8, imageWidth / scale, dataProvider, nil, NO);
+    CGImageRef mask = CGImageMaskCreate(imageWidth, imageHeight, 8, 8, imageWidth, dataProvider, nil, NO);
     scratchImage = CGImageCreateWithMask(hideImage, mask);
     
     CGImageRelease(mask);
