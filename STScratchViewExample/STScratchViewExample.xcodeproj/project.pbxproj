@@ -18,9 +18,12 @@
 		254A61AC168005B5009F5BF6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 254A61AB168005B5009F5BF6 /* Default-568h@2x.png */; };
 		254A61AF168005B5009F5BF6 /* STViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A61AE168005B5009F5BF6 /* STViewController.m */; };
 		254A61B2168005B5009F5BF6 /* STViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 254A61B0168005B5009F5BF6 /* STViewController.xib */; };
-		254A61BB168005C4009F5BF6 /* STScratchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A61BA168005C4009F5BF6 /* STScratchView.m */; };
 		254A61C1168008A9009F5BF6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 254A61C0168008A9009F5BF6 /* QuartzCore.framework */; };
-		254A61C31680137A009F5BF6 /* 395878_492130997483748_1119203742_n.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 254A61C21680137A009F5BF6 /* 395878_492130997483748_1119203742_n.jpg */; };
+		25867F9E168657F9004636DE /* STScratchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25867F9D168657F9004636DE /* STScratchView.m */; };
+		25867FA416865826004636DE /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 25867FA016865826004636DE /* background.png */; };
+		25867FA516865826004636DE /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25867FA116865826004636DE /* background@2x.png */; };
+		25867FA616865826004636DE /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 25867FA216865826004636DE /* ball.png */; };
+		25867FA716865826004636DE /* ball@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25867FA316865826004636DE /* ball@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,10 +43,13 @@
 		254A61AD168005B5009F5BF6 /* STViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STViewController.h; sourceTree = "<group>"; };
 		254A61AE168005B5009F5BF6 /* STViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STViewController.m; sourceTree = "<group>"; };
 		254A61B1168005B5009F5BF6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/STViewController.xib; sourceTree = "<group>"; };
-		254A61B9168005C4009F5BF6 /* STScratchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STScratchView.h; sourceTree = "<group>"; };
-		254A61BA168005C4009F5BF6 /* STScratchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STScratchView.m; sourceTree = "<group>"; };
 		254A61C0168008A9009F5BF6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		254A61C21680137A009F5BF6 /* 395878_492130997483748_1119203742_n.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 395878_492130997483748_1119203742_n.jpg; path = ../../../../../Downloads/395878_492130997483748_1119203742_n.jpg; sourceTree = "<group>"; };
+		25867F9C168657F9004636DE /* STScratchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STScratchView.h; path = ../../STScratchView/STScratchView.h; sourceTree = "<group>"; };
+		25867F9D168657F9004636DE /* STScratchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STScratchView.m; path = ../../STScratchView/STScratchView.m; sourceTree = "<group>"; };
+		25867FA016865826004636DE /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		25867FA116865826004636DE /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
+		25867FA216865826004636DE /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
+		25867FA316865826004636DE /* ball@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ball@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,13 +98,13 @@
 		254A619B168005B5009F5BF6 /* STScratchViewExample */ = {
 			isa = PBXGroup;
 			children = (
-				254A61C21680137A009F5BF6 /* 395878_492130997483748_1119203742_n.jpg */,
-				254A61B8168005C4009F5BF6 /* STScratchView */,
+				25867F9B168657E9004636DE /* STScratchView */,
 				254A61A4168005B5009F5BF6 /* STAppDelegate.h */,
 				254A61A5168005B5009F5BF6 /* STAppDelegate.m */,
 				254A61AD168005B5009F5BF6 /* STViewController.h */,
 				254A61AE168005B5009F5BF6 /* STViewController.m */,
 				254A61B0168005B5009F5BF6 /* STViewController.xib */,
+				25867F9F16865826004636DE /* Images */,
 				254A619C168005B5009F5BF6 /* Supporting Files */,
 			);
 			path = STScratchViewExample;
@@ -118,13 +124,24 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		254A61B8168005C4009F5BF6 /* STScratchView */ = {
+		25867F9B168657E9004636DE /* STScratchView */ = {
 			isa = PBXGroup;
 			children = (
-				254A61B9168005C4009F5BF6 /* STScratchView.h */,
-				254A61BA168005C4009F5BF6 /* STScratchView.m */,
+				25867F9C168657F9004636DE /* STScratchView.h */,
+				25867F9D168657F9004636DE /* STScratchView.m */,
 			);
-			path = STScratchView;
+			name = STScratchView;
+			sourceTree = "<group>";
+		};
+		25867F9F16865826004636DE /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				25867FA016865826004636DE /* background.png */,
+				25867FA116865826004636DE /* background@2x.png */,
+				25867FA216865826004636DE /* ball.png */,
+				25867FA316865826004636DE /* ball@2x.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,7 +201,10 @@
 				254A61AA168005B5009F5BF6 /* Default@2x.png in Resources */,
 				254A61AC168005B5009F5BF6 /* Default-568h@2x.png in Resources */,
 				254A61B2168005B5009F5BF6 /* STViewController.xib in Resources */,
-				254A61C31680137A009F5BF6 /* 395878_492130997483748_1119203742_n.jpg in Resources */,
+				25867FA416865826004636DE /* background.png in Resources */,
+				25867FA516865826004636DE /* background@2x.png in Resources */,
+				25867FA616865826004636DE /* ball.png in Resources */,
+				25867FA716865826004636DE /* ball@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,7 +218,7 @@
 				254A61A2168005B5009F5BF6 /* main.m in Sources */,
 				254A61A6168005B5009F5BF6 /* STAppDelegate.m in Sources */,
 				254A61AF168005B5009F5BF6 /* STViewController.m in Sources */,
-				254A61BB168005C4009F5BF6 /* STScratchView.m in Sources */,
+				25867F9E168657F9004636DE /* STScratchView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +335,7 @@
 				254A61B7168005B5009F5BF6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

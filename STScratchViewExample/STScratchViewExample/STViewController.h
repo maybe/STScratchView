@@ -11,7 +11,7 @@
 @class STScratchView;
 @interface STViewController : UIViewController
 
-@property (nonatomic, strong) STScratchView *scratchView;
-@property (nonatomic, strong) UIImageView *alphaView;
+@property (nonatomic, strong) IBOutlet UILabel *dollarsAmount;
+@property (nonatomic, strong) IBOutlet STScratchView *scratchView;
 
 @end

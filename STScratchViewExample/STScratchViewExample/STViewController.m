@@ -19,32 +19,18 @@
 {
     [super viewDidLoad];
     
-    // Added the STScratchView to the controller
-    _scratchView = [[STScratchView alloc] initWithFrame:CGRectMake(10.0, 20.0, 80.0, 80.0)];
+    // Set up the STScratchView
     [_scratchView setSizeBrush:20.0];
-    [self.view addSubview:_scratchView];
 
-    // Define the view which hide the content
-    UIView *viewToScratch = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 80.0, 80.0)];
-    [viewToScratch setBackgroundColor:[UIColor redColor]];
-    [viewToScratch setUserInteractionEnabled:YES];
+    // Create a (child) UIView
+    UIImageView *ball = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 118.0, 111.0)];
+    [ball setImage:[UIImage imageNamed:@"ball.png"]];
     
-    UIImageView *imageTest = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 80.0, 80.0)];
-    [imageTest setImage:[UIImage imageNamed:@"395878_492130997483748_1119203742_n.jpg"]];
-    
-    [_scratchView setHideView:imageTest];
-    
-    _alphaView = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 140.0, 80.0, 80.0)];
-    [_alphaView setImage:[_scratchView returnImage]];
-    [self.view addSubview:_alphaView];
-    
-    // Ne pas pleurer et ne pas faire une crise cardiaque. Bisous.
-    [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(upd) userInfo:nil repeats:YES];
-}
+    // Define the hide view
+    [_scratchView setHideView:ball];    
 
-- (void)upd
-{
-    [_alphaView setImage:[_scratchView returnImage]];
+    // Edit randomly the UILabel
+    [_dollarsAmount setText:[NSString stringWithFormat:@"$ %d", arc4random() % 100]];
 }
 
 - (void)didReceiveMemoryWarning

@@ -7,7 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface STScratchView : UIView
+{
+    CGPoint previousTouchLocation;
+    CGPoint currentTouchLocation;
+    
+    CGImageRef hideImage;
+    CGImageRef scratchImage;
+
+	CGContextRef contextMask;
+}
+
+@property (nonatomic, assign) float percentAccomplishment;
+@property (nonatomic, assign) float sizeBrush;
+
+@property (nonatomic, strong) UIView *hideView;
+
+- (void)setHideView:(UIView *)hideView;
+- (void)reset;
 
 @end
