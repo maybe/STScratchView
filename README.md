@@ -1,6 +1,6 @@
 # STScratchView
 
-A UIView which allow a scratching behavior.
+A UIView which allows a scratching behavior.
 
 ![STScratchView screenshot](https://raw.github.com/SebastienThiebaud/STScratchView/master/screenshot.png "STScratchView Screenshot")
 
