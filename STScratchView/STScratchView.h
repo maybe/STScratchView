@@ -26,6 +26,5 @@
 @property (nonatomic, strong) UIView *hideView;
 
 - (void)setHideView:(UIView *)hideView;
-- (void)reset;
 
 @end
