@@ -13,10 +13,11 @@ You need only 2 files:
 
 You need to create an UIView (or child UIView: UIImageView for example) and give this view to the STScratchView object via the `-[STScratchView setHideView:(UIView *)hideView]` method.
 
+The official documentation is available here: http://doc.sebastienthiebaud.us/Classes/STScratchView.html
+
 ## Demo
 
 Build and run the project STScratchViewExample in Xcode to see `STScratchView` in action. 
-
 
 ## Example Usage
 
