@@ -6,9 +6,27 @@
 //  Copyright (c) 2012 Sebastien Thiebaud. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "STScratchView.h"
 
+@interface STScratchView()
+
+- (void)initScratch;
+- (void)refreshAutomaticScratch:(NSTimer *)timer;
+@end
+
 @implementation STScratchView
+{
+    CGPoint _previousTouchLocation;
+    CGPoint _currentTouchLocation;
+    
+    CGImageRef _hideImage;
+    CGImageRef _scratchImage;
+    
+	CGContextRef _contextMask;
+    
+    UIView *_refMovementView;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -29,7 +47,7 @@
 {
     [super drawRect:rect];
     
-    UIImage *imageToDraw = [UIImage imageWithCGImage:scratchImage];
+    UIImage *imageToDraw = [UIImage imageWithCGImage:_scratchImage];
     [imageToDraw drawInRect:CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height)];
 }
 
@@ -37,36 +55,33 @@
 - (void)setHideView:(UIView *)hideView
 {
     CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceGray();
-	int bitmapByteCount;
-	int bitmapBytesPerRow;
 
     float scale = [UIScreen mainScreen].scale;
     
     UIGraphicsBeginImageContextWithOptions(hideView.bounds.size, NO, 0);
     [hideView.layer renderInContext:UIGraphicsGetCurrentContext()];
     hideView.layer.contentsScale = scale;
-    hideImage = UIGraphicsGetImageFromCurrentImageContext().CGImage;
+    _hideImage = UIGraphicsGetImageFromCurrentImageContext().CGImage;
     UIGraphicsEndImageContext();
     
-    size_t imageWidth = CGImageGetWidth(hideImage);
-    size_t imageHeight = CGImageGetHeight(hideImage);
-        
-	bitmapBytesPerRow = (imageWidth * 4);
-	bitmapByteCount = (bitmapBytesPerRow * imageHeight);
+    size_t imageWidth = CGImageGetWidth(_hideImage);
+    size_t imageHeight = CGImageGetHeight(_hideImage);
     
     CFMutableDataRef pixels = CFDataCreateMutable(NULL, imageWidth * imageHeight);
-    contextMask = CGBitmapContextCreate(CFDataGetMutableBytePtr(pixels), imageWidth, imageHeight , 8, imageWidth, colorspace, kCGImageAlphaNone);
+    _contextMask = CGBitmapContextCreate(CFDataGetMutableBytePtr(pixels), imageWidth, imageHeight , 8, imageWidth, colorspace, kCGImageAlphaNone);
     CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData(pixels);
+    CFRelease(pixels);
     
-    CGContextSetFillColorWithColor(contextMask, [UIColor blackColor].CGColor);
-    CGContextFillRect(contextMask, self.frame);
+    CGContextSetFillColorWithColor(_contextMask, [UIColor blackColor].CGColor);
+    CGContextFillRect(_contextMask, self.frame);
     
-    CGContextSetStrokeColorWithColor(contextMask, [UIColor whiteColor].CGColor);
-    CGContextSetLineWidth(contextMask, _sizeBrush);
-    CGContextSetLineCap(contextMask, kCGLineCapRound);
+    CGContextSetStrokeColorWithColor(_contextMask, [UIColor whiteColor].CGColor);
+    CGContextSetLineWidth(_contextMask, _sizeBrush);
+    CGContextSetLineCap(_contextMask, kCGLineCapRound);
     
     CGImageRef mask = CGImageMaskCreate(imageWidth, imageHeight, 8, 8, imageWidth, dataProvider, nil, NO);
-    scratchImage = CGImageCreateWithMask(hideImage, mask);
+    _scratchImage = CGImageCreateWithMask(_hideImage, mask);
+    CGDataProviderRelease(dataProvider);
     
     CGImageRelease(mask);
     CGColorSpaceRelease(colorspace);
@@ -76,9 +91,9 @@
 {
     float scale = [UIScreen mainScreen].scale;
 
-    CGContextMoveToPoint(contextMask, startPoint.x * scale, (self.frame.size.height - startPoint.y) * scale);
-	CGContextAddLineToPoint(contextMask, endPoint.x * scale, (self.frame.size.height - endPoint.y) * scale);
-	CGContextStrokePath(contextMask);
+    CGContextMoveToPoint(_contextMask, startPoint.x * scale, (self.frame.size.height - startPoint.y) * scale);
+	CGContextAddLineToPoint(_contextMask, endPoint.x * scale, (self.frame.size.height - endPoint.y) * scale);
+	CGContextStrokePath(_contextMask);
 	[self setNeedsDisplay];
     
 }
@@ -91,7 +106,7 @@
     [super touchesBegan:touches withEvent:event];
     
     UITouch *touch = [[event touchesForView:self] anyObject];
-    currentTouchLocation = [touch locationInView:self];
+    _currentTouchLocation = [touch locationInView:self];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -100,14 +115,14 @@
     
     UITouch *touch = [[event touchesForView:self] anyObject];
    
-    if (!CGPointEqualToPoint(previousTouchLocation, CGPointZero))
+    if (!CGPointEqualToPoint(_previousTouchLocation, CGPointZero))
     {
-        currentTouchLocation = [touch locationInView:self];
+        _currentTouchLocation = [touch locationInView:self];
     }
     
-    previousTouchLocation = [touch previousLocationInView:self];
+    _previousTouchLocation = [touch previousLocationInView:self];
    
-    [self scratchTheViewFrom:previousTouchLocation to:currentTouchLocation];
+    [self scratchTheViewFrom:_previousTouchLocation to:_currentTouchLocation];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -116,10 +131,10 @@
     
     UITouch *touch = [[event touchesForView:self] anyObject];
 
-    if (!CGPointEqualToPoint(previousTouchLocation, CGPointZero))
+    if (!CGPointEqualToPoint(_previousTouchLocation, CGPointZero))
     {
-        previousTouchLocation = [touch previousLocationInView:self];
-        [self scratchTheViewFrom:previousTouchLocation to:currentTouchLocation];
+        _previousTouchLocation = [touch previousLocationInView:self];
+        [self scratchTheViewFrom:_previousTouchLocation to:_currentTouchLocation];
     }
 }
 
@@ -130,8 +145,49 @@
 
 - (void)initScratch
 {
-    currentTouchLocation = CGPointZero;
-    previousTouchLocation = CGPointZero;
+    _currentTouchLocation = CGPointZero;
+    _previousTouchLocation = CGPointZero;
+}
+
+#pragma mark -
+#pragma mark Automatic scratch
+
+- (void)setAutomaticScratchCurve:(UIBezierPath *)curvePath duration:(float)duration
+{
+    [_refMovementView removeFromSuperview];
+    _refMovementView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 5.0, 5.0)];
+    _refMovementView.alpha = 0.0;
+    [self addSubview:_refMovementView];
+
+    CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    pathAnimation.duration = duration;
+    pathAnimation.path = curvePath.CGPath;
+    pathAnimation.calculationMode = kCAAnimationLinear;
+    pathAnimation.removedOnCompletion = YES;
+    pathAnimation.autoreverses = NO;
+    pathAnimation.fillMode = kCAFillModeForwards;
+    [_refMovementView.layer addAnimation:pathAnimation forKey:@"movingAnimation"];
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.0/30.0 target:self selector:@selector(refreshAutomaticScratch:) userInfo:nil repeats:YES];
+}
+
+- (void)refreshAutomaticScratch:(NSTimer *)timer
+{    
+    if (_refMovementView.layer.animationKeys.count == 0)
+    {
+        return;
+    }
+    
+    CALayer *presentationLayer = _refMovementView.layer.presentationLayer;
+    _currentTouchLocation = presentationLayer.position;
+    
+    if (CGPointEqualToPoint(_currentTouchLocation, _previousTouchLocation))
+    {
+        [timer invalidate];
+    }
+    
+    [self scratchTheViewFrom:_previousTouchLocation to:_currentTouchLocation];
+    _previousTouchLocation = _currentTouchLocation;
 }
 
 @end

@@ -1,8 +1,12 @@
 # STScratchView
 
-A UIView which allows a scratching behavior.
+A UIView which allows a manual and automatic scratching behavior.
 
 ![STScratchView screenshot](https://raw.github.com/SebastienThiebaud/STScratchView/master/screenshot.png "STScratchView Screenshot")
+
+## Installation
+
+I love CocoaPods and you will. Add a new line on your .podspec with 'STScratchView'.
 
 ## Documentation
 
@@ -12,6 +16,8 @@ You need only 2 files:
 - `STScratchView.m`
 
 You need to create an UIView (or child UIView: UIImageView for example) and give this view to the STScratchView object via the `-[STScratchView setHideView:(UIView *)hideView]` method.
+
+You can also define a `UIBezierPath` to create an automatic scratch with `-[STScratchView setAutomaticScratchCurve:(UIBezierPath *)curvePath duration:(float)duration]`.
 
 The official documentation is available here: http://doc.sebastienthiebaud.us/Classes/STScratchView.html
 

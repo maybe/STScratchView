@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Sebastien Thiebaud. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @class STScratchView;
 @interface STViewController : UIViewController
 

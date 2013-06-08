@@ -39,4 +39,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+//    If you want to active an automatic scratch
+//    [self automaticScratch];
+}
+
+- (void)automaticScratch
+{
+    UIBezierPath *customPath = [UIBezierPath bezierPath];
+    [customPath moveToPoint:CGPointMake(0,0)];
+    [customPath addLineToPoint:CGPointMake(100,20)];
+    [customPath addLineToPoint:CGPointMake(0,30)];
+    [customPath addLineToPoint:CGPointMake(90,55)];
+    [customPath addLineToPoint:CGPointMake(10,65)];
+    [customPath addLineToPoint:CGPointMake(90,80)];
+    
+    [_scratchView setAutomaticScratchCurve:customPath duration:1.0];
+}
+
 @end
