@@ -6,7 +6,7 @@ A UIView which allows a manual and automatic scratching behavior.
 
 ## Installation
 
-I love CocoaPods and you will. Add a new line on your .podspec with 'STScratchView'.
+I love CocoaPods and you will. Add a new line on your Podfile with 'STScratchView'.
 
 ## Documentation
 
