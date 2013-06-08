@@ -19,8 +19,6 @@ You need to create an UIView (or child UIView: UIImageView for example) and give
 
 You can also define a `UIBezierPath` to create an automatic scratch with `-[STScratchView setAutomaticScratchCurve:(UIBezierPath *)curvePath duration:(float)duration]`.
 
-The official documentation is available here: http://doc.sebastienthiebaud.us/Classes/STScratchView.html
-
 ## Demo
 
 Build and run the project STScratchViewExample in Xcode to see `STScratchView` in action. 
