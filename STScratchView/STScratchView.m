@@ -58,7 +58,7 @@
 
     float scale = [UIScreen mainScreen].scale;
     
-    UIGraphicsBeginImageContextWithOptions(hideView.bounds.size, NO, 0);
+    UIGraphicsBeginImageContextWithOptions(hideView.bounds.size, NO, scale);
     [hideView.layer renderInContext:UIGraphicsGetCurrentContext()];
     hideView.layer.contentsScale = scale;
     _hideImage = UIGraphicsGetImageFromCurrentImageContext().CGImage;
@@ -67,7 +67,7 @@
     size_t imageWidth = CGImageGetWidth(_hideImage);
     size_t imageHeight = CGImageGetHeight(_hideImage);
     
-    CFMutableDataRef pixels = CFDataCreateMutable(NULL, imageWidth * imageHeight);
+    CFMutableDataRef pixels = CFDataCreateMutable(NULL, imageWidth * imageHeight * scale);
     _contextMask = CGBitmapContextCreate(CFDataGetMutableBytePtr(pixels), imageWidth, imageHeight , 8, imageWidth, colorspace, kCGImageAlphaNone);
     CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData(pixels);
     CFRelease(pixels);
